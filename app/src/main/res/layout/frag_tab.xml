@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="false">
+
+    <com.scannerapp.ahurwitz.scannerapp.camera.CameraSourcePreview
+        android:id="@+id/preview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <com.scannerapp.ahurwitz.scannerapp.camera.GraphicOverlay
+            android:id="@+id/barOverlay"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </com.scannerapp.ahurwitz.scannerapp.camera.CameraSourcePreview>
+
+    <!--<LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/btn_takepicture"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/take_picture" />
+        <Button
+            android:id="@+id/btn_switch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/switch_camera"/>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="end|center_vertical">
+            <TextView
+                android:id="@+id/cameraVersion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:layout_marginRight="10dp"
+                android:text="Camera 1"
+                android:textSize="18sp"
+                android:textColor="@android:color/white"
+                android:background="@android:color/black"/>
+        </LinearLayout>
+    </LinearLayout>-->
+</FrameLayout>
