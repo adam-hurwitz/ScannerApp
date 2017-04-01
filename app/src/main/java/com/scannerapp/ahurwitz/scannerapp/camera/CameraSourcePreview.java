@@ -30,15 +30,11 @@ public class CameraSourcePreview extends ViewGroup {
     private Camera2Source mCamera2Source;
 
     private GraphicOverlay mOverlay;
-    private int screenWidth;
-    private int screenHeight;
     private int screenRotation;
 
     public CameraSourcePreview(Context context, AttributeSet attrs) {
         super(context, attrs);
         this.context = context;
-        screenHeight = Utils.getScreenHeight(context);
-        screenWidth = Utils.getScreenWidth(context);
         screenRotation = Utils.getScreenRotation(context);
         mStartRequested = false;
         mSurfaceAvailable = false;

@@ -29,17 +29,20 @@ public class BarcodeTrackerFactory
         implements MultiProcessor.Factory<Barcode> {
     private GraphicOverlay<BarcodeGraphic> graphicOverlayTwo;
     Context context;
+    int scannerType;
 
-    public BarcodeTrackerFactory(GraphicOverlay<BarcodeGraphic> barcodeGraphicOverlayTwo, Context context) {
+    public BarcodeTrackerFactory(GraphicOverlay<BarcodeGraphic> barcodeGraphicOverlayTwo,
+                                 Context context, int scannerType) {
         this.graphicOverlayTwo = barcodeGraphicOverlayTwo;
         this.context = context;
+        this.scannerType = scannerType;
     }
 
     @Override
     public Tracker<Barcode> create(Barcode barcode) {
 
         BarcodeGraphic graphic = new BarcodeGraphic(graphicOverlayTwo);
-        return new BarcodeGraphicTracker(graphicOverlayTwo, graphic, context);
+        return new BarcodeGraphicTracker(graphicOverlayTwo, graphic, context, scannerType);
 
     }
 

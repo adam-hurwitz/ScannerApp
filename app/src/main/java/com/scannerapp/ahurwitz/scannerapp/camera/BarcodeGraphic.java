@@ -31,16 +31,12 @@ public class BarcodeGraphic extends GraphicOverlay.Graphic {
     private int mId;
 
     private static final int COLOR_CHOICES[] = {
-            //todo: just use GREEN per specs
-            /*Color.BLUE,
-            Color.CYAN,*/
             Color.GREEN
     };
 
     private static int mCurrentColorIndex = 0;
 
     private Paint mRectPaint;
-    //private Paint mTextPaint;
     private volatile Barcode mBarcode;
 
 

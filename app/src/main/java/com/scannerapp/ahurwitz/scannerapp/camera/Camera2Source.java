@@ -52,10 +52,6 @@ import java.util.TreeMap;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.TimeUnit;
 
-/**
- * Created by Ezequiel Adrian on 24/02/2017.
- */
-
 @TargetApi(Build.VERSION_CODES.LOLLIPOP)
 public class Camera2Source {
     public static final int CAMERA_FACING_BACK = 0;

@@ -28,24 +28,26 @@ import com.google.android.gms.vision.barcode.Barcode;
  * goes away.
  */
 public class BarcodeGraphicTracker extends Tracker<Barcode> {
-    private GraphicOverlay<BarcodeGraphic> mOverlay;
-    private BarcodeGraphic mGraphic;
+    private GraphicOverlay<BarcodeGraphic> overlay;
+    private BarcodeGraphic graphic;
+    private int scannerType;
 
-    public UpdateItemListener updateItemListener;
+    public UpdateBarcodeListener updateBarcodeListener;
 
-    public interface UpdateItemListener {
-        void getItem(Barcode barcode);
+    public interface UpdateBarcodeListener {
+        void getBarcode(Barcode barcode, int scannerType);
     }
 
     BarcodeGraphicTracker(GraphicOverlay<BarcodeGraphic> overlay, BarcodeGraphic graphic,
-                          Context context) {
-        mOverlay = overlay;
-        mGraphic = graphic;
+                          Context context, int scannerType) {
+        this.overlay = overlay;
+        this.graphic = graphic;
+        this.scannerType = scannerType;
 
-        if (context instanceof UpdateItemListener) {
-            updateItemListener = (UpdateItemListener) context;
+        if (context instanceof UpdateBarcodeListener) {
+            updateBarcodeListener = (UpdateBarcodeListener) context;
         } else {
-            throw new RuntimeException("Hosting activity must implement UpdateItemListener");
+            throw new RuntimeException("Hosting activity must implement UpdateBarcodeListener");
         }
     }
 
@@ -55,8 +57,8 @@ public class BarcodeGraphicTracker extends Tracker<Barcode> {
     @Override
     public void onNewItem(int id, Barcode item) {
 
-        mGraphic.setId(id);
-        updateItemListener.getItem(item);
+        graphic.setId(id);
+        updateBarcodeListener.getBarcode(item, scannerType);
 
     }
 
@@ -65,8 +67,8 @@ public class BarcodeGraphicTracker extends Tracker<Barcode> {
      */
     @Override
     public void onUpdate(Detector.Detections<Barcode> detectionResults, Barcode item) {
-        mOverlay.add(mGraphic);
-        mGraphic.updateItem(item);
+        overlay.add(graphic);
+        graphic.updateItem(item);
     }
 
     /**
@@ -76,7 +78,7 @@ public class BarcodeGraphicTracker extends Tracker<Barcode> {
      */
     @Override
     public void onMissing(Detector.Detections<Barcode> detectionResults) {
-        mOverlay.remove(mGraphic);
+        overlay.remove(graphic);
     }
 
     /**
@@ -85,6 +87,6 @@ public class BarcodeGraphicTracker extends Tracker<Barcode> {
      */
     @Override
     public void onDone() {
-        mOverlay.remove(mGraphic);
+        overlay.remove(graphic);
     }
 }

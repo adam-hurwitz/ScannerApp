@@ -6,10 +6,6 @@ import android.util.Log;
 import android.view.TextureView;
 
 /**
- * Created by Ezequiel on 25/02/2017.
- */
-
-/**
  * A {@link TextureView} that can be adjusted to a specified aspect ratio.
  */
 public class AutoFitTextureView extends TextureView {
