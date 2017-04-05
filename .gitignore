@@ -58,9 +58,5 @@ freeline_project_description.json
 gradle/wrapper
 app/src/test/java/com/scannerapp/ahurwitz/scannerapp/ExampleUnitTest.java
 .idea
-gradlew
-gradlew.bat
-settings.gradle
-gradle.properties
 app/proguard-rules.pro
 app/src/androidTest/java/com/scannerapp/ahurwitz/scannerapp/ExampleInstrumentedTest.java
