@@ -22,7 +22,6 @@ public class CameraSourcePreview extends ViewGroup {
 
     private Context context;
 
-    private boolean usingCameraOne;
     private boolean mStartRequested;
     private boolean mSurfaceAvailable;
     private boolean viewAdded = false;
@@ -45,7 +44,6 @@ public class CameraSourcePreview extends ViewGroup {
     }
 
     public void start(Camera2Source camera2Source, GraphicOverlay overlay) throws IOException {
-        usingCameraOne = false;
         mOverlay = overlay;
         start(camera2Source);
     }

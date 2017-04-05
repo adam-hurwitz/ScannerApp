@@ -1,6 +1,7 @@
 package com.scannerapp.ahurwitz.scannerapp;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.Build;
@@ -97,6 +98,7 @@ public class BarcodeFragment extends android.support.v4.app.Fragment {
         initViews(view);
         initBarcodeImage();
 
+        //todo: add in for results adapter
         /*barcodeAdapter = new BarcodeAdapter();
         recyclerView.setAdapter(barcodeAdapter);
         recyclerView.setLayoutManager(
@@ -115,11 +117,14 @@ public class BarcodeFragment extends android.support.v4.app.Fragment {
         preview = (CameraSourcePreview) view.findViewById(R.id.preview);
         graphicOverlay = (GraphicOverlay) view.findViewById(R.id.barOverlay);
         barcodeImg = (ImageView) view.findViewById(R.id.barcode_img);
-        bottomSheet = view.findViewById(R.id.bottom_sheet);
-        recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
+        //todo: add in for Bottom Sheet
+        //bottomSheet = view.findViewById(R.id.bottom_sheet);
+        //recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
+        /*bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
+        bottomSheetBehavior.setPeekHeight(150);*/
 
-        bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
-        bottomSheetBehavior.setPeekHeight(150);
+        Log.v(BarcodeFragment.class.getSimpleName(), "BC: "
+                + " " + preview.isActivated() + " " + preview.isEnabled() + " " + preview.isAttachedToWindow());
 
     }
 
@@ -184,32 +189,28 @@ public class BarcodeFragment extends android.support.v4.app.Fragment {
             Toast.makeText(context, "BARCODE DETECTION NOT AVAILABLE", Toast.LENGTH_SHORT).show();
         }
 
-        if (useCamera2) {
-            mCamera2Source = new Camera2Source.Builder(context, barcodeDetector)
-                    .setFacing(Camera2Source.CAMERA_FACING_BACK)
-                    .setFocusMode(Camera2Source.CAMERA_AF_CONTINUOUS_PICTURE)
-                    .build();
+        mCamera2Source = new Camera2Source.Builder(context, barcodeDetector)
+                .setFacing(Camera2Source.CAMERA_FACING_BACK)
+                .setFocusMode(Camera2Source.CAMERA_AF_CONTINUOUS_PICTURE)
+                .build();
 
-            if (mCamera2Source.isCamera2Native()) {
-                startCameraSource();
-            } else {
-                useCamera2 = false;
-                createCameraSourceBack();
-            }
-        }
+        startCameraSource();
 
     }
 
     public void startCameraSource() {
-        if (useCamera2) {
-            if (mCamera2Source != null) {
-                try {
-                    preview.start(mCamera2Source, graphicOverlay);
-                } catch (IOException e) {
-                    Log.e(TAG, "Unable to start camera source 2.", e);
-                    mCamera2Source.release();
-                    mCamera2Source = null;
-                }
+        if (mCamera2Source != null) {
+            try {
+
+                preview.start(mCamera2Source, graphicOverlay);
+                Log.v(BarcodeFragment.class.getSimpleName(), "BC: " + preview.getVisibility()
+                + " " + preview.isActivated() + " " + preview.isEnabled() + " " + preview.isAttachedToWindow());
+
+
+            } catch (IOException e) {
+                Log.e(TAG, "Unable to start camera source 2.", e);
+                mCamera2Source.release();
+                mCamera2Source = null;
             }
         }
     }
@@ -227,13 +228,6 @@ public class BarcodeFragment extends android.support.v4.app.Fragment {
             } else {
                 Toast.makeText(getActivity(), "CAMERA PERMISSION REQUIRED", Toast.LENGTH_LONG).show();
                 getActivity().finish();
-            }
-        }
-        if (requestCode == REQUEST_STORAGE_PERMISSION) {
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                requestPermissionThenOpenCamera();
-            } else {
-                Toast.makeText(getActivity(), "STORAGE PERMISSION REQUIRED", Toast.LENGTH_LONG).show();
             }
         }
     }
