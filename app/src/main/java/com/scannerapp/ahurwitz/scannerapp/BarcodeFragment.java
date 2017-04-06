@@ -15,6 +15,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -57,6 +58,7 @@ public class BarcodeFragment extends android.support.v4.app.Fragment {
     private ArrayList<String> barcodeNames = new ArrayList<>();
     private BarcodeAdapter barcodeAdapter;
     private RecyclerView recyclerView;
+    boolean isFragVisible;
 
     public BarcodeFragment() {
     }
@@ -122,9 +124,6 @@ public class BarcodeFragment extends android.support.v4.app.Fragment {
         //recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
         /*bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
         bottomSheetBehavior.setPeekHeight(150);*/
-
-        Log.v(BarcodeFragment.class.getSimpleName(), "BC: "
-                + " " + preview.isActivated() + " " + preview.isEnabled() + " " + preview.isAttachedToWindow());
 
     }
 
@@ -203,9 +202,6 @@ public class BarcodeFragment extends android.support.v4.app.Fragment {
             try {
 
                 preview.start(mCamera2Source, graphicOverlay);
-                Log.v(BarcodeFragment.class.getSimpleName(), "BC: " + preview.getVisibility()
-                + " " + preview.isActivated() + " " + preview.isEnabled() + " " + preview.isAttachedToWindow());
-
 
             } catch (IOException e) {
                 Log.e(TAG, "Unable to start camera source 2.", e);
@@ -233,9 +229,17 @@ public class BarcodeFragment extends android.support.v4.app.Fragment {
     }
 
     @Override
+    public void setMenuVisibility(final boolean visible) {
+        super.setMenuVisibility(visible);
+        if (visible) {
+            isFragVisible = true;
+        }
+    }
+
+    @Override
     public void onResume() {
         super.onResume();
-        if (wasActivityResumed) {
+        if ( wasActivityResumed && isFragVisible ) {
             startPreview();
         }
     }
