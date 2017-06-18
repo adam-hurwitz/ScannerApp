@@ -5,17 +5,17 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="false">
 
-    <com.scannerapp.ahurwitz.scannerapp.camera.CameraSourcePreview
+    <com.scannerapp.ahurwitz.scannerapp.Camera.CameraSourcePreview
         android:id="@+id/preview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:translationZ="@dimen/cameraSourcePreview_Z">
 
-        <com.scannerapp.ahurwitz.scannerapp.camera.GraphicOverlay
+        <com.scannerapp.ahurwitz.scannerapp.Camera.GraphicOverlay
             android:id="@+id/barOverlay"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
-    </com.scannerapp.ahurwitz.scannerapp.camera.CameraSourcePreview>
+    </com.scannerapp.ahurwitz.scannerapp.Camera.CameraSourcePreview>
 
     <ImageView
         android:id="@+id/barcode_img"
@@ -25,39 +25,34 @@
         android:layout_gravity="center" />
 
     <android.support.design.widget.CoordinatorLayout
-        android:id="@+id/bottom_sheet_container"
+        android:id="@+id/coordinator_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/preview"
-        android:translationZ="@dimen/bottom_sheet_Z">
+        android:layout_height="200dp"
+        android:layout_alignBottom="@+id/preview">
 
-        <!--todo: add in for Bottom Sheet-->
-        <!--<LinearLayout
-            android:id="@+id/bottom_sheet"
+        <LinearLayout
+            android:id="@+id/recycler_container"
             android:layout_width="match_parent"
-            android:layout_height="450dp"
-            android:background="@color/colorPrimary"
-            android:orientation="vertical"
-            app:layout_behavior="android.support.design.widget.BottomSheetBehavior">
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            app:layout_behavior="android.support.design.widget.BottomSheetBehavior"
+            android:orientation="vertical">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center_horizontal"
-                android:text="@string/results"
-                android:padding="8dp"
-                android:textColor="@color/colorAccent"
-                android:textSize="20sp"/>
+            <ImageView
+                android:id="@+id/handle"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="8dp"/>
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recycler_view"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_alignParentBottom="true"
-                android:background="@color/colorPrimary" />
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimary"
+                android:elevation="4dp" />
 
-        </LinearLayout>-->
-
+        </LinearLayout>
     </android.support.design.widget.CoordinatorLayout>
 
 </RelativeLayout>

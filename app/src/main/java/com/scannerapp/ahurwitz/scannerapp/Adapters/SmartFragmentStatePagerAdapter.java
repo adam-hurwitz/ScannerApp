@@ -1,4 +1,4 @@
-package com.scannerapp.ahurwitz.scannerapp.adapters;
+package com.scannerapp.ahurwitz.scannerapp.Adapters;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;

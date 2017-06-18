@@ -1,4 +1,4 @@
-package com.scannerapp.ahurwitz.scannerapp.utils;
+package com.scannerapp.ahurwitz.scannerapp.Utils;
 
 /**
  * Created by Ezequiel Adrian on 24/02/2017.
@@ -12,6 +12,9 @@ import android.view.Display;
 import android.view.WindowManager;
 
 import com.google.android.gms.common.images.Size;
+
+import java.net.MalformedURLException;
+import java.net.URL;
 
 
 public class Utils {
@@ -86,5 +89,19 @@ public class Utils {
         }
         return statusBar;
     }
+
+    public static boolean isValidURL(String urlStr) {
+        if (urlStr != null && !urlStr.isEmpty()) {
+            try {
+                URL url = new URL(urlStr);
+                return true;
+            } catch (MalformedURLException e) {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
+
 
 }

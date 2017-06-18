@@ -1,8 +1,7 @@
-package com.scannerapp.ahurwitz.scannerapp.camera;
+package com.scannerapp.ahurwitz.scannerapp.Camera;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.TextureView;
 
 /**

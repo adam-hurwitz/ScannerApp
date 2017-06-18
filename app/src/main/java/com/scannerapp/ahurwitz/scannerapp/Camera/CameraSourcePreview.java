@@ -1,4 +1,4 @@
-package com.scannerapp.ahurwitz.scannerapp.camera;
+package com.scannerapp.ahurwitz.scannerapp.Camera;
 
 import android.content.Context;
 import android.graphics.SurfaceTexture;
@@ -10,7 +10,7 @@ import android.view.TextureView;
 import android.view.ViewGroup;
 
 import com.google.android.gms.common.images.Size;
-import com.scannerapp.ahurwitz.scannerapp.utils.Utils;
+import com.scannerapp.ahurwitz.scannerapp.Utils.Utils;
 
 import java.io.IOException;
 

@@ -7,8 +7,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.google.android.gms.vision.barcode.Barcode;
-import com.scannerapp.ahurwitz.scannerapp.camera.BarcodeGraphicTracker;
-import com.scannerapp.ahurwitz.scannerapp.adapters.SmartFragmentStatePagerAdapter;
+import com.scannerapp.ahurwitz.scannerapp.Camera.BarcodeGraphicTracker;
+import com.scannerapp.ahurwitz.scannerapp.Adapters.SmartFragmentStatePagerAdapter;
 
 public class BarcodeActivity extends AppCompatActivity implements BarcodeGraphicTracker.UpdateBarcodeListener {
 
@@ -48,11 +48,11 @@ public class BarcodeActivity extends AppCompatActivity implements BarcodeGraphic
         public Fragment getItem(int position) {
             switch (position) {
                 case 0:
-                    return BarcodeFragment.newInstance(Barcode.DATA_MATRIX, false);
+                    return BarcodeFragment.newInstance(Barcode.DATA_MATRIX);
                 case 1:
-                    return BarcodeFragment.newInstance(Barcode.QR_CODE, true);
+                    return BarcodeFragment.newInstance(Barcode.QR_CODE);
                 case 2:
-                    return BarcodeFragment.newInstance(Barcode.PDF417, false);
+                    return BarcodeFragment.newInstance(Barcode.PDF417);
                 default:
                     return null;
             }
@@ -102,15 +102,12 @@ public class BarcodeActivity extends AppCompatActivity implements BarcodeGraphic
         final Barcode barcodeVar = barcode;
         final int scannerTypeVar = scannerType;
 
-        /*runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
+        runOnUiThread(() -> {
 
-                BarcodeFragment barcodeFragment = (BarcodeFragment) scannerPagerAdapter.getRegisteredFragment(viewPager.getCurrentItem());
-                barcodeFragment.addToResults(scannerTypeVar, barcodeVar);
+            BarcodeFragment barcodeFragment = (BarcodeFragment) scannerPagerAdapter.getRegisteredFragment(viewPager.getCurrentItem());
+            barcodeFragment.addToResults(scannerTypeVar, barcodeVar);
 
-            }
-        });*/
+        });
 
 
     }

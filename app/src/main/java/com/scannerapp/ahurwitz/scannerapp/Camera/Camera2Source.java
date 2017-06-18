@@ -1,4 +1,4 @@
-package com.scannerapp.ahurwitz.scannerapp.camera;
+package com.scannerapp.ahurwitz.scannerapp.Camera;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -37,7 +37,7 @@ import android.view.Surface;
 import com.google.android.gms.common.images.Size;
 import com.google.android.gms.vision.Detector;
 import com.google.android.gms.vision.Frame;
-import com.scannerapp.ahurwitz.scannerapp.utils.Utils;
+import com.scannerapp.ahurwitz.scannerapp.Utils.Utils;
 
 import java.io.IOException;
 import java.lang.Thread.State;

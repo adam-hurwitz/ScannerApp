@@ -1,6 +1,7 @@
-package com.scannerapp.ahurwitz.scannerapp.adapters;
+package com.scannerapp.ahurwitz.scannerapp.Adapters;
 
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -14,12 +15,12 @@ import com.scannerapp.ahurwitz.scannerapp.R;
 
 public class BarcodeViewHolder extends RecyclerView.ViewHolder {
 
-    private FrameLayout barcodeView;
-    private TextView barcodeText;
+    public FrameLayout barcodeView;
 
+    private TextView barcodeText;
     private String barcodeValue;
 
-    public BarcodeViewHolder(View view) {
+    public BarcodeViewHolder(View view, View.OnClickListener onClickListener) {
 
         super(view);
 
@@ -27,15 +28,17 @@ public class BarcodeViewHolder extends RecyclerView.ViewHolder {
 
         barcodeText = (TextView) view.findViewById(R.id.cell_text);
 
+        barcodeView.setOnClickListener(onClickListener);
+
     }
 
-    public void onBind(String barcodeValue){
-
-        Log.v(BarcodeViewHolder.class.getSimpleName(), "RESULTS: " + barcodeValue );
+    public void bind(String barcodeValue){
 
         this.barcodeValue = barcodeValue;
 
         barcodeText.setText(barcodeValue);
+
+        barcodeView.setTag(barcodeView.getId(), barcodeValue);
 
     }
 
