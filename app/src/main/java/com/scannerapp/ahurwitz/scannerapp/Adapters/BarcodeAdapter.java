@@ -1,6 +1,5 @@
 package com.scannerapp.ahurwitz.scannerapp.Adapters;
 
-import android.support.v4.util.Pair;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -55,15 +54,13 @@ public class BarcodeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     }
 
     public void addItems(List<String> barcodeValues) {
-
         this.barcodeValues.addAll(barcodeValues);
         notifyDataSetChanged();
-
     }
 
-    public void swapItems(List<String> qReplies) {
-        barcodeValues.clear();
-        barcodeValues.addAll(qReplies);
+    public void swapItems(List<String> barcodeValues) {
+        this.barcodeValues.clear();
+        this.barcodeValues.addAll(barcodeValues);
         notifyDataSetChanged();
     }
 
@@ -71,9 +68,10 @@ public class BarcodeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         return onCellSelectedSubscriber.asObservable();
     }
 
-
     @Override
     public void onClick(View v) {
         onCellSelectedSubscriber.onNext((String) v.getTag(viewHolder.barcodeView.getId()));
     }
+
+
 }

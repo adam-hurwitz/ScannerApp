@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="false">
+
+    <com.scannerapp.ahurwitz.scannerapp.Camera.CameraSourcePreview
+        android:id="@+id/preview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:translationZ="@dimen/cameraSourcePreview_Z">
+
+        <com.scannerapp.ahurwitz.scannerapp.Camera.GraphicOverlay
+            android:id="@+id/barOverlay"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </com.scannerapp.ahurwitz.scannerapp.Camera.CameraSourcePreview>
+
+    <FrameLayout
+        android:id="@+id/content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+</FrameLayout>

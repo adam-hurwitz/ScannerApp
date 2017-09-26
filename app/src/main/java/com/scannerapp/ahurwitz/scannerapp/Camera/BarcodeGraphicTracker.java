@@ -16,6 +16,7 @@
 package com.scannerapp.ahurwitz.scannerapp.Camera;
 
 import android.content.Context;
+import android.support.annotation.UiThread;
 
 import com.google.android.gms.vision.Detector;
 import com.google.android.gms.vision.Tracker;
@@ -24,69 +25,70 @@ import com.google.android.gms.vision.barcode.Barcode;
 /**
  * Generic tracker which is used for tracking or reading a barcode (and can really be used for
  * any type of item).  This is used to receive newly detected items, add a graphical representation
- * to an overlay, update the graphics as the item changes, and remove the graphics when the item
+ * to an mOverlay, update the graphics as the item changes, and remove the graphics when the item
  * goes away.
  */
 public class BarcodeGraphicTracker extends Tracker<Barcode> {
-    private GraphicOverlay<BarcodeGraphic> overlay;
-    private BarcodeGraphic graphic;
-    private int scannerType;
+    private GraphicOverlay<BarcodeGraphic> mOverlay;
+    private BarcodeGraphic mGraphic;
 
-    public UpdateBarcodeListener updateBarcodeListener;
+    private BarcodeUpdateListener mBarcodeUpdateListener;
 
-    public interface UpdateBarcodeListener {
-        void getBarcode(Barcode barcode, int scannerType);
+    /**
+     * Consume the item instance detected from an Activity or Fragment level by implementing the
+     * BarcodeUpdateListener interface method onBarcodeDetected.
+     */
+    public interface BarcodeUpdateListener {
+        @UiThread
+        void onBarcodeDetected(Barcode barcode);
     }
 
-    BarcodeGraphicTracker(GraphicOverlay<BarcodeGraphic> overlay, BarcodeGraphic graphic,
-                          Context context, int scannerType) {
-        this.overlay = overlay;
-        this.graphic = graphic;
-        this.scannerType = scannerType;
+    BarcodeGraphicTracker(GraphicOverlay<BarcodeGraphic> mOverlay, BarcodeGraphic mGraphic,
+                          Context context) {
+        this.mOverlay = mOverlay;
+        this.mGraphic = mGraphic;
 
-        if (context instanceof UpdateBarcodeListener) {
-            updateBarcodeListener = (UpdateBarcodeListener) context;
+        if (context instanceof BarcodeUpdateListener) {
+            mBarcodeUpdateListener = (BarcodeUpdateListener) context;
         } else {
-            throw new RuntimeException("Hosting activity must implement UpdateBarcodeListener");
+            throw new RuntimeException("Hosting activity must implement BarcodeUpdateListener");
         }
     }
 
     /**
-     * Start tracking the detected item instance within the item overlay.
+     * Start tracking the detected item instance within the item mOverlay.
      */
     @Override
     public void onNewItem(int id, Barcode item) {
-
-        graphic.setId(id);
-        updateBarcodeListener.getBarcode(item, scannerType);
-
+        mGraphic.setId(id);
+        mBarcodeUpdateListener.onBarcodeDetected(item);
     }
 
     /**
-     * Update the position/characteristics of the item within the overlay.
+     * Update the position/characteristics of the item within the mOverlay.
      */
     @Override
     public void onUpdate(Detector.Detections<Barcode> detectionResults, Barcode item) {
-        overlay.add(graphic);
-        graphic.updateItem(item);
+        mOverlay.add(mGraphic);
+        mGraphic.updateItem(item);
     }
 
     /**
-     * Hide the graphic when the corresponding object was not detected.  This can happen for
+     * Hide the mGraphic when the corresponding object was not detected.  This can happen for
      * intermediate frames temporarily, for example if the object was momentarily blocked from
      * view.
      */
     @Override
     public void onMissing(Detector.Detections<Barcode> detectionResults) {
-        overlay.remove(graphic);
+        mOverlay.remove(mGraphic);
     }
 
     /**
-     * Called when the item is assumed to be gone for good. Remove the graphic annotation from
-     * the overlay.
+     * Called when the item is assumed to be gone for good. Remove the mGraphic annotation from
+     * the mOverlay.
      */
     @Override
     public void onDone() {
-        overlay.remove(graphic);
+        mOverlay.remove(mGraphic);
     }
 }

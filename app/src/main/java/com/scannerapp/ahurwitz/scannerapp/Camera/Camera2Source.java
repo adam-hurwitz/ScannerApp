@@ -75,6 +75,7 @@ public class Camera2Source {
     private static final SparseIntArray ORIENTATIONS = new SparseIntArray();
     private boolean cameraStarted = false;
     private int mSensorOrientation;
+    private static Detector<?> mDetector;
 
     /**
      * A reference to the opened {@link CameraDevice}.
@@ -325,8 +326,7 @@ public class Camera2Source {
      * Builder for configuring and creating an associated camera source.
      */
     public static class Builder {
-        private final Detector<?> mDetector;
-        private Camera2Source mCameraSource = new Camera2Source();
+        private Camera2Source mCamera2Source = new Camera2Source();
 
         /**
          * Creates a camera source builder with the supplied context and detector.  Camera preview
@@ -341,16 +341,16 @@ public class Camera2Source {
             }
 
             mDetector = detector;
-            mCameraSource.mContext = context;
+            mCamera2Source.mContext = context;
         }
 
         public Builder setFocusMode(int mode) {
-            mCameraSource.mFocusMode = mode;
+            mCamera2Source.mFocusMode = mode;
             return this;
         }
 
         public Builder setFlashMode(int mode) {
-            mCameraSource.mFlashMode = mode;
+            mCamera2Source.mFlashMode = mode;
             return this;
         }
 
@@ -362,7 +362,7 @@ public class Camera2Source {
             if ((facing != CAMERA_FACING_BACK) && (facing != CAMERA_FACING_FRONT)) {
                 throw new IllegalArgumentException("Invalid camera: " + facing);
             }
-            mCameraSource.mFacing = facing;
+            mCamera2Source.mFacing = facing;
             return this;
         }
 
@@ -370,8 +370,8 @@ public class Camera2Source {
          * Creates an instance of the camera source.
          */
         public Camera2Source build() {
-            mCameraSource.mFrameProcessor = mCameraSource.new FrameProcessingRunnable(mDetector);
-            return mCameraSource;
+            mCamera2Source.mFrameProcessor = mCamera2Source.new FrameProcessingRunnable();
+            return mCamera2Source;
         }
     }
 
@@ -948,7 +948,6 @@ public class Camera2Source {
      * received frame will immediately start on the same thread.
      */
     private class FrameProcessingRunnable implements Runnable {
-        private Detector<?> mDetector;
         private long mStartTimeMillis = SystemClock.elapsedRealtime();
 
         // This lock guards all of the member variables below.
@@ -960,9 +959,7 @@ public class Camera2Source {
         private int mPendingFrameId = 0;
         private byte[] mPendingFrameData;
 
-        FrameProcessingRunnable(Detector<?> detector) {
-            mDetector = detector;
-        }
+        FrameProcessingRunnable() {}
 
         /**
          * Releases the underlying receiver.  This is only safe to do after the associated thread
@@ -1147,5 +1144,9 @@ public class Camera2Source {
             }
         }
 
-    };
+    }
+
+    public void refreshDetector(Detector<?> detector){
+        mDetector = detector;
+    }
 }

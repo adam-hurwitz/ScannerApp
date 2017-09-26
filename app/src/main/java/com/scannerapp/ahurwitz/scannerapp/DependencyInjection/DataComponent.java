@@ -2,7 +2,6 @@ package com.scannerapp.ahurwitz.scannerapp.DependencyInjection;
 
 
 import com.scannerapp.ahurwitz.scannerapp.BarcodeApplication;
-import com.scannerapp.ahurwitz.scannerapp.BarcodeFragment;
 
 import javax.inject.Singleton;
 
@@ -18,7 +17,5 @@ import dagger.Component;
 public interface DataComponent {
 
     void inject(BarcodeApplication barcodeApplication);
-
-    void inject(BarcodeFragment barcodeFragment);
 
 }

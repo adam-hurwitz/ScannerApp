@@ -1,6 +1,8 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'kotlin-android-extensions'
+
 //lambdas
 apply plugin: 'me.tatarka.retrolambda'
 
@@ -34,22 +36,24 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+
+    //dagger
+    
+
+    //rxjava
+    // Because RxAndroid releases are few and far between, it is recommended you also
+    // explicitly depend on RxJava's latest version for bug fixes and new features.
     compile 'com.android.support:appcompat-v7:25.3.0'
     compile 'com.google.android.gms:play-services-vision:10.2.0'
     compile 'com.github.bumptech.glide:glide:3.7.0'
     compile 'com.android.support:design:25.3.0'
-    testCompile 'junit:junit:4.12'
-    compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
-
-    //dagger
     compile 'com.google.dagger:dagger:2.9'
-    kapt 'com.google.dagger:dagger-compiler:2.9'
-
-    //rxjava
     compile 'io.reactivex:rxandroid:1.2.0'
-    // Because RxAndroid releases are few and far between, it is recommended you also
-    // explicitly depend on RxJava's latest version for bug fixes and new features.
     compile 'io.reactivex:rxjava:1.1.5'
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    testCompile 'junit:junit:4.12'
+    kapt 'com.google.dagger:dagger-compiler:2.9'
 }
 
 //retrolambda

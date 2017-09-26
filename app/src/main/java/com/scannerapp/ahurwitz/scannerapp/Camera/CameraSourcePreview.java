@@ -26,7 +26,7 @@ public class CameraSourcePreview extends ViewGroup {
     private boolean mSurfaceAvailable;
     private boolean viewAdded = false;
 
-    private Camera2Source mCamera2Source;
+    private Camera2Source camera2Source;
 
     private GraphicOverlay mOverlay;
     private int screenRotation;
@@ -50,8 +50,8 @@ public class CameraSourcePreview extends ViewGroup {
 
     private void start(Camera2Source camera2Source) throws IOException {
         if (camera2Source == null) {stop();}
-        mCamera2Source = camera2Source;
-        if(mCamera2Source != null) {
+        this.camera2Source = camera2Source;
+        if(this.camera2Source != null) {
             mStartRequested = true;
             if(!viewAdded) {
                 addView(mAutoFitTextureView);
@@ -63,23 +63,23 @@ public class CameraSourcePreview extends ViewGroup {
 
     public void stop() {
         mStartRequested = false;
-            if(mCamera2Source != null) {
-                mCamera2Source.stop();
+            if(camera2Source != null) {
+                camera2Source.stop();
             }
     }
 
     private void startIfReady() throws IOException {
         if (mStartRequested && mSurfaceAvailable) {
             try {
-                    mCamera2Source.start(mAutoFitTextureView, screenRotation);
+                    camera2Source.start(mAutoFitTextureView, screenRotation);
                     if (mOverlay != null) {
-                        Size size = mCamera2Source.getPreviewSize();
+                        Size size = camera2Source.getPreviewSize();
                         if(size != null) {
                             int min = Math.min(size.getWidth(), size.getHeight());
                             int max = Math.max(size.getWidth(), size.getHeight());
                             // FOR GRAPHIC OVERLAY, THE PREVIEW SIZE WAS REDUCED TO QUARTER
                             // IN ORDER TO PREVENT CPU OVERLOAD
-                            mOverlay.setCameraInfo(min/4, max/4, mCamera2Source.getCameraFacing());
+                            mOverlay.setCameraInfo(min/4, max/4, camera2Source.getCameraFacing());
                             mOverlay.clear();
                         } else {
                             stop();
